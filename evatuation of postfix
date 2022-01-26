@@ -1,0 +1,44 @@
+//  EVALUATION OF POSTFIX EXPRESSION //
+#include<stdio.h>
+#include<ctype.h>
+#include<math.h>
+#define MAX_SIZE 20
+
+float arith_op(float op1,char operator,float op2)
+{
+    switch(operator)
+    {
+        case '+':return(op1+op2);
+        case '-':return(op1-op2);
+        case '*':return(op1*op2);
+        case '/':return(op1/op2);
+        case '$':
+        case '^':return pow(op1,op2);
+    }
+    
+}
+int main()
+{
+    char postfix[20];
+    float S[MAX_SIZE],op1,op2;
+    int top=-1,i=0;
+    printf("enter postfix expression\n");
+    scanf("%s",postfix);
+    while(postfix[i]!='\0')
+    {
+        if(isdigit(postfix[i])!=0)//numeric char
+        {
+            S[++top]=postfix[i] -'0';//pusing each char into S
+        }
+        else// non numeric char 
+        {
+            op2=S[top--];//poping last pushed char
+            op1=S[top--];
+            S[++top]=arith_op(op1,postfix[i],op2);//performing arithmatic operation
+        }
+        i++;
+    }
+    //displaying result
+    printf("result is %f",S[top--]);
+    return 0;
+}
