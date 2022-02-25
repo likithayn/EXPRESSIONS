@@ -2,7 +2,18 @@
 #include <stdio.h>
 #include <string.h>
 #define MAX_SIZE 20
-
+char  push( char * S ,char symbol,int * top)
+{
+    (*top)++;
+    S[(*top)]=symbol;
+    return * S;
+}
+char  pop( char * S ,int * top)
+{
+    int elem=S[(*top)];
+    (*top)--;
+    return elem;
+}
 int F(char symbol)//stack precedence
 { 
     while(1)
@@ -45,18 +56,18 @@ void infix_to_postfix(char * infix,char * postfix)
 {
     int j=0,top=-1,i;
     char S[MAX_SIZE],symbol;
-    S[++top]='#';//pushing # on to stack
+    push(S,'#',&top);//pushing # on to stack
     for(i=0;i<strlen(infix);i++)
     {
         symbol=infix[i];
         while(F(S[top])>G(symbol))
         {
-            postfix[j]=S[top--];// saving poped char in postfix expression  
+            postfix[j]=pop(S,&top);// saving poped char in postfix expression  
             j++;
         }
         if(F(S[top])!=G(symbol))//pusing char if precedence of char is less
         {
-            S[++top]=symbol;
+            push(S,symbol,&top);
         }
         else
         {
@@ -66,7 +77,7 @@ void infix_to_postfix(char * infix,char * postfix)
     }
     while(S[top]!= '#')//poping out all char till #
     {
-        postfix[j]=S[top--];
+        postfix[j]=pop(S,&top);
         j++;
     }
     postfix[j]='\0';
