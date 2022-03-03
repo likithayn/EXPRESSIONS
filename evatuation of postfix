@@ -3,7 +3,7 @@
 #include<ctype.h>
 #include<math.h>
 #define MAX_SIZE 20
-float push( float * S ,char symbol,int * top)
+float * push( float * S ,char symbol,int * top)
 {
     (*top)++;
     S[(*top)]=symbol;
