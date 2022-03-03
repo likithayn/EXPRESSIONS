@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <string.h>
 #define MAX_SIZE 20
-char  push( char * S ,char symbol,int * top)
+char * push( char * S ,char symbol,int * top)
 {
     (*top)++;
     S[(*top)]=symbol;
-    return * S;
+    return  S;
 }
 char  pop( char * S ,int * top)
 {
